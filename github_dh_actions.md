@@ -1,5 +1,13 @@
 ### GitHub Actions & DockerHub
 
+#### Folder structure for github actions 
+github specifically looks for this folder in your root
+your-repo/
+└── .github/
+    └── workflows/
+        └── ci.yml        ← create this 
+
+
 #### Push to main vs Pull Request to main
 on: pull_request (targeting main)When a PR is opened, updated, or reopened — before merge
 on: push (to main)When code actually lands on main — after merge
@@ -48,4 +56,12 @@ ${{  secrets.DOCKERHUB_USERNAME  }}
      └── which "bag" to look in (secrets / github / env / runner)
 
 #### How DockerHub image naming actually works
-        
+In DockerHub, the image tag itself encodes everything — your username, repository name, and version tag all in one string.
+
+johndoe  /  mydockerexp  :  latest
+   ↑             ↑             ↑
+username    repository      version
+(your DH    (you created     tag
+ account)    this in DH)
+
+
