@@ -59,9 +59,13 @@ ${{  secrets.DOCKERHUB_USERNAME  }}
 In DockerHub, the image tag itself encodes everything — your username, repository name, and version tag all in one string.
 
 johndoe  /  mydockerexp  :  latest
+
    ↑             ↑             ↑
+
 username    repository      version
+
 (your DH    (you created     tag
+
  account)    this in DH)
 
 
