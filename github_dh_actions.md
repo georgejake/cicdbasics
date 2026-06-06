@@ -68,4 +68,13 @@ username    repository      version
 
  account)    this in DH)
 
+#### Add DockerHub Secrets to GitHub
+
+Before the workflow, you need to store your DockerHub credentials safely in GitHub. Never hardcode these in your YAML.Go to your GitHub repo →  Settings → Secrets and variables → Actions → New repository secret and add these two:
+Secret NameValueDOCKERHUB_USERNAMEYour DockerHub usernameDOCKERHUB_TOKENA DockerHub Access Token (not your password)
+    - Settings level
+        - What it controls
+            - Your Profile Settings (top right avatar)Your personal account references
+            - Repository Settings (inside your repo)CI/CD, secrets, branches for that specific repo
+Secrets live at the Repository level — not your profile.
 
