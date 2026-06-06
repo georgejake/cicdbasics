@@ -39,6 +39,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Set up Docker Buildx        # ← new step added here
+        uses: docker/setup-buildx-action@v3
+        
       # Step 3: Build and Push in one shot
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5

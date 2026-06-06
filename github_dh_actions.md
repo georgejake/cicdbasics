@@ -78,3 +78,14 @@ Secret NameValueDOCKERHUB_USERNAMEYour DockerHub usernameDOCKERHUB_TOKENA Docker
             - Repository Settings (inside your repo)CI/CD, secrets, branches for that specific repo
 Secrets live at the Repository level — not your profile.
 
+#### Why we had to add docker/setup-buildx-action@v3
+    - name: Set up Docker Buildx        # ← new step added here
+        - uses: docker/setup-buildx-action@v3
+GitHub Actions by default uses the docker driver to build images — and that driver does not support the type=gha cache export we added.
+Think of it like this:
+docker driver          →  basic car, no roof rack
+                          can't carry/store cache on top
+
+docker-container driver →  car with roof rack
+                           can carry cache in and out ✅
+
