@@ -89,3 +89,18 @@ Your process runs as PID 1 directly, so signals like SIGTERM (used by docker sto
 #### Layers — each instruction creates a new layer. Docker caches them, so order matters. Put things that change less frequently (like installing dependencies) before things that change often (like copying source code).
 
 Steps 5 & 6 before Step 7 — this is the layer caching trick. Docker re-runs a layer only if the files it depends on change. By copying pyproject.toml and uv.lock first and installing dependencies before copying your source code, Docker can skip re-installing packages on every code change.
+
+#### Caching Docker layers
+First — how Docker builds work (layers)
+Every instruction in your Dockerfile creates a layer — think of it like a stack of transparent sheets:
+
+FROM python:3.11-slim        # Layer 1 — base image
+COPY pyproject.toml .        # Layer 2 — dependency files
+RUN uv sync                  # Layer 3 — install dependencies  ← slowest
+COPY . .                     # Layer 4 — your app code
+CMD ["uvicorn", "app.main:app"]  # Layer 5 — start command
+Docker is smart — if a layer hasn't changed, it reuses the cached version and skips rebuilding it.The problem without caching in CI ,Every time GitHub Actions runs, it spins up a brand new VM — completely empty, no memory of previous runs:
+- How Docker layer caching works in GitHub Actions
+    - GitHub Actions has a cache storage that persists between runs. The docker/build-push-action can save and restore Docker layers from this cache:
+
+ 
